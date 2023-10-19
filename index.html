@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tenzi Test</title>
+</head>
+<body>
+  <button id="testButton">Test /tenzi</button>
+
+  <script>
+    document.getElementById('testButton').addEventListener('click', () => {
+      const jsonData = { klasse: 'Wert' };
+      fetch('http://localhost:3000/tenzi', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data); // Hier kannst du die Serverantwort verarbeiten
+        })
+        .catch(error => {
+          console.error('Fehler:', error);
+        });
+    });
+  </script>
+</body>
+</html>
