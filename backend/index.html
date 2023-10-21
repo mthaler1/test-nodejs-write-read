@@ -11,7 +11,7 @@
     document.getElementById('testButtonAdd').addEventListener('click', () => {
       const frageText = 'Wieviel ist 2+2?'; // Der Text, den du senden möchtest
       const jsonData = { frage_text: frageText };
-      fetch('http://localhost:3000/add', {
+      fetch('http://localhost:8080/add', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
