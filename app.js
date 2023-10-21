@@ -51,19 +51,25 @@ app.post('/tenzi', (req, res) => {
 
   app.post('/add', (req, res) => {
     const jsonData = req.body;
-  const frage_text = jsonData.frage_text;
-
-  const sqlQuery = "INSERT INTO Mitglieder (id, Name) VALUES (7, ?)"; // Hier geht es davon aus, dass du eine Tabelle 'Fragen' hast
-
-  connection.query(sqlQuery, [frage_text], (error, results) => {
-    if (error) {
-      console.error('Fehler beim Einfügen von Daten: ' + error.message);
-      res.status(500).send('Fehler beim Einfügen von Daten');
-    } else {
-      console.log('Daten erfolgreich eingefügt.');
-      res.status(200).send('Daten erfolgreich eingefügt');
-    }
-  });
+    const frage_text = jsonData.frage_text;
+    const frage_antwort1 = jsonData.frage_antwort1 || 'Standardantwort1';
+    
+    // Neue Variablen hinzufügen
+    const schwerpunkt_id = 4;
+    const frage_richtigeAntwort = frage_antwort1;
+  
+    const sqlQuery = "INSERT INTO fragen (frage_id, frage_text, frage_antwort1, frage_antwort2, schwerpunkt_id, frage_richtigeAntwort) VALUES (15, ?, ?, ?, ?, ?)";
+    // Hier geht es davon aus, dass du eine Tabelle 'Fragen' mit Spalten frage_id, frage_text, frage_antwort1, frage_antwort2, schwerpunkt_id und frage_richtigeAntwort hast
+  
+    connection.query(sqlQuery, [frage_text, frage_antwort1, 'Standardantwort2', schwerpunkt_id, frage_richtigeAntwort], (error, results) => {
+      if (error) {
+        console.error('Fehler beim Einfügen von Daten: ' + error.message);
+        res.status(500).send('Fehler beim Einfügen von Daten');
+      } else {
+        console.log('Daten erfolgreich eingefügt.');
+        res.status(200).send('Daten erfolgreich eingefügt');
+      }
+    });
   });
 
   app.post('/delete', (req, res) => {
