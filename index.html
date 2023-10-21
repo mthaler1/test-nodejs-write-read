@@ -4,12 +4,33 @@
   <title>Tenzi Test</title>
 </head>
 <body>
-  <button id="testButton">Test /tenzi</button>
+  <button id="testButtonAdd">Test /add</button>
+  <button id="testButtonDelete">Test /delete</button>
 
   <script>
-    document.getElementById('testButton').addEventListener('click', () => {
-      const jsonData = { klasse: 'Wert' };
-      fetch('http://localhost:3000/tenzi', {
+    document.getElementById('testButtonAdd').addEventListener('click', () => {
+      const frageText = 'Wieviel ist 2+2?'; // Der Text, den du senden möchtest
+      const jsonData = { frage_text: frageText };
+      fetch('http://localhost:3000/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(jsonData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data); // Hier kannst du die Serverantwort verarbeiten
+        })
+        .catch(error => {
+          console.error('Fehler:', error);
+        });
+    });
+
+    document.getElementById('testButtonDelete').addEventListener('click', () => {
+      const frage_id = 7; // Die ID der Frage, die du löschen möchtest
+      const jsonData = { frage_id: frage_id };
+      fetch('http://localhost:3000/delete', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

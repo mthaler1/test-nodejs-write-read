@@ -49,6 +49,42 @@ app.post('/tenzi', (req, res) => {
     console.log(klasse);
   });
 
+  app.post('/add', (req, res) => {
+    const jsonData = req.body;
+  const frage_text = jsonData.frage_text;
+
+  const sqlQuery = "INSERT INTO Mitglieder (id, Name) VALUES (7, ?)"; // Hier geht es davon aus, dass du eine Tabelle 'Fragen' hast
+
+  connection.query(sqlQuery, [frage_text], (error, results) => {
+    if (error) {
+      console.error('Fehler beim Einfügen von Daten: ' + error.message);
+      res.status(500).send('Fehler beim Einfügen von Daten');
+    } else {
+      console.log('Daten erfolgreich eingefügt.');
+      res.status(200).send('Daten erfolgreich eingefügt');
+    }
+  });
+  });
+
+  app.post('/delete', (req, res) => {
+    const jsonData = req.body;
+  const frage_id = jsonData.frage_id;
+
+  const sqlQuery = "DELETE FROM Mitglieder WHERE id = ?";
+
+  connection.query(sqlQuery, [frage_id], (error, results) => {
+    if (error) {
+      console.error('Fehler beim Einfügen von Daten: ' + error.message);
+      res.status(500).send('Fehler beim Einfügen von Daten');
+    } else {
+      console.log('Daten erfolgreich gelöscht.');
+      res.status(200).send('Daten erfolgreich eingefügt');
+    }
+  });
+  });
+
+
+
 // 404-Handler hinzufügen
 app.use((req, res) => {
   res.status(404).send('404 - Fehler');
